@@ -30,34 +30,13 @@
 #  along with this program; if not, write to the Free Software                 #
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA   #
 
-# uploader_http_websocket.py
-# Sends a POST request with a JSON payload to a specified API endpoint and
-# handles the response.
+# config.py
+# This files makes a variable available throughout the entire Python
+# application, including all modules, submodules, and functions.
 
-import requests  # pip install requests
-import json
+# Requirements
+import os
 
-# Define the API endpoint
-api_url = 'http://127.0.0.1:5000/api/save_json'
-
-# Sample JSON payload
-sample_json_data = {
-    "name": "John Smith",
-    "age": 30,
-    "city": "Example City"
-}
-
-try:
-    # Send a POST request to the API endpoint with JSON payload
-    response = requests.post(api_url, json=sample_json_data)
-
-    # Check the response status
-    if response.status_code == 200:
-        print("JSON data saved successfully.")
-        print("Response:", response.json())
-    else:
-        print(f"Error: {response.status_code}")
-        print("Response:", response.json())
-
-except requests.exceptions.RequestException as e:
-    print(f"Request failed: {e}")
+# The path to the .env configuration file
+CONFIG_FILE_DIR = os.environ["COMMBASE_APP_DIR"]
+CONFIG_FILE_PATH = os.path.join(CONFIG_FILE_DIR, "config/commbase.conf")

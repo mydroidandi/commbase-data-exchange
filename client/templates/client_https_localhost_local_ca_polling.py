@@ -39,6 +39,14 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import schedule  # pip install schedule
 import time
 
+from config import CONFIG_FILE_PATH
+from file_paths import (
+    get_ca_pem_file_path
+)
+from functions import (
+    get_client_polling_interval_in_secs
+)
+
 # Suppress only the InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -49,10 +57,13 @@ api_url = 'https://127.0.0.1:5000/api/get_saved_data'
 socketio_url = 'https://127.0.0.1:5000'
 # socketio_url = 'ws://127.0.0.1:5000'
 
-# Path to the CA certificate file (change this to the actual path)
-ca_cert_path = './certificates/ca.pem'
+# Path to the CA certificate file (change this to the actual path 'certificates/ca.pem')
+ca_cert_path = get_ca_pem_file_path()
 
 sio = Client()
+
+# Time interval in seconds for scheduling the task
+interval = int(get_client_polling_interval_in_secs())
 
 
 @sio.on('update_saved_data')
@@ -84,8 +95,8 @@ def get_updated_data():
         print(f"Request failed: {e}")
 
 
-# Schedule the task to run every 5 seconds
-schedule.every(5).seconds.do(get_updated_data)
+# Schedule the task to run every time interval in seconds
+schedule.every(interval).seconds.do(get_updated_data)
 
 # Run the scheduler
 while True:

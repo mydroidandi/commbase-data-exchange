@@ -1,1 +1,1 @@
-{"name": "John Doe", "age": 30, "city": "Example City"}
+{"messages": [{"control": "accept_changes"}, {"current_request": "Ok accept."}, {"previous_request": "Ok accept."}, {"current_response": ""}, {"runtime": ""}, {"source_code_display": ""}, {"source_code": ""}]}
